@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 mongoose.connect("mongodb://localhost:27017/mydatabase", {
   userNewUrlParser: true,
-  useInifiedTopology: true,
+  useInified: true,
 });
 
 const db = mongoose.connection;
