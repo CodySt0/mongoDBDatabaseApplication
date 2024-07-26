@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Post = require("../modles/Post");
+const Post = require("../routes/Post");
 
 //CREATE new post
 router.post("/posts", async (req, res) => {
@@ -74,7 +74,7 @@ if (!isValid) {
 }
 
 //DELETE post by ID
-router.delete("posts/:id", async (req, res) => {
+router.delete("/posts/:id", async (req, res) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
 

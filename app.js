@@ -1,23 +1,28 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require(body - parser);
+const userRoutes = require("./routes/userRoutes");
+const postRoutes = require("./routes/postRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 
 const app = express();
-const port = 5004;
+const port = process.env.PORT || 5004;
 
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/mydatabase", {
-  userNewUrlParser: true,
-  useInified: true,
-});
+app.use(userRoutes);
+app.use(postRoutes);
+app.use(commentRoutes);
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB");
-});
+mongoose
+  .connect(dbURI, { userNewUrl: true, useJoin: true })
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(port, () => {
+      console.log("Server running at localhost:${port}");
+    });
+  })
 
-app.listen(port, () => {
-  console.log("Server running at localhost:${port}");
-});
+  .catch((error) => {
+    console.error9("Connection Error", error);
+  });
